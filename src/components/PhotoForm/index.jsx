@@ -10,47 +10,43 @@ import * as Yup from 'yup';
 
 PhotoForm.propTypes = {
   onSubmit: PropTypes.func,
+  isAddMode: PropTypes.bool,
 };
 
 PhotoForm.defaultProps = {
   onSubmit: null,
-}
+  isAddMode: true,
+};
 
-function PhotoForm(props) {
-  const { initialValues, isAddMode } = props;
+function PhotoForm({ isAddMode, onSubmit, initialValues }) {
+  const requiredMessage = 'This field is required!';
 
   const validationSchema = Yup.object().shape({
-    title: Yup.string().required('This field is required.'),
+    title: Yup.string().required(requiredMessage),
 
-    categoryId: Yup.number()
-      .required('This field is required.')
-      .nullable(),
+    categoryId: Yup.number().required(requiredMessage).nullable(),
 
     photo: Yup.string().when('categoryId', {
       is: 1,
-      then: Yup.string().required('This field is required.'),
+      then: Yup.string().required(requiredMessage),
       otherwise: Yup.string().notRequired(),
-    })
+    }),
   });
 
-  // npm i --save react-select
   return (
     <Formik
       initialValues={initialValues}
       validationSchema={validationSchema}
-      onSubmit={props.onSubmit}
+      onSubmit={onSubmit}
     >
-      {formikProps => {
-        // do something here ...
-        const { values, errors, touched, isSubmitting } = formikProps;
-        console.log({ values, errors, touched });
+      {(formikProps) => {
+        const { isSubmitting } = formikProps;
 
         return (
           <Form>
             <FastField
               name="title"
               component={InputField}
-
               label="Title"
               placeholder="Eg: Wow nature ..."
             />
@@ -58,7 +54,6 @@ function PhotoForm(props) {
             <FastField
               name="categoryId"
               component={SelectField}
-
               label="Category"
               placeholder="What's your photo category?"
               options={PHOTO_CATEGORY_OPTIONS}
@@ -72,8 +67,8 @@ function PhotoForm(props) {
 
             <FormGroup>
               <Button type="submit" color={isAddMode ? 'primary' : 'success'}>
-                {isSubmitting && <Spinner size="sm" />}
                 {isAddMode ? 'Add to album' : 'Update your photo'}
+                {isSubmitting && <Spinner size="sm" />}
               </Button>
             </FormGroup>
           </Form>

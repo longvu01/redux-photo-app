@@ -19,45 +19,42 @@ SelectField.defaultProps = {
   placeholder: '',
   disabled: false,
   options: [],
-}
+};
 
 function SelectField(props) {
   const { field, form, options, label, placeholder, disabled } = props;
   const { name, value } = field;
+  // {name, value, onChange, onBlur}
+  const selectedOption = options.find((option) => option.value === value);
   const { errors, touched } = form;
-  const showError = errors[name] && touched[name];
+  const isError = !!(touched[name] && errors[name]);
 
-  const selectedOption = options.find(option => option.value === value);
-
-  const handleSelectedOptionChange = (selectedOption) => {
-    const selectedValue = selectedOption ? selectedOption.value : selectedOption;
+  // Handle
+  const handleSelectOptionChange = (selectOption) => {
+    const selectValue = selectOption ? selectOption.value : selectOption;
 
     const changeEvent = {
       target: {
-        name: name,
-        value: selectedValue
-      }
+        name,
+        value: selectValue,
+      },
     };
     field.onChange(changeEvent);
-  }
+  };
 
   return (
     <FormGroup>
       {label && <Label for={name}>{label}</Label>}
-
       <Select
         id={name}
         {...field}
         value={selectedOption}
-        onChange={handleSelectedOptionChange}
-
-        placeholder={placeholder}
+        onChange={handleSelectOptionChange}
         isDisabled={disabled}
+        placeholder={placeholder}
         options={options}
-
-        className={showError ? 'is-invalid' : ''}
+        className={isError ? 'is-invalid' : ''}
       />
-
       <ErrorMessage name={name} component={FormFeedback} />
     </FormGroup>
   );

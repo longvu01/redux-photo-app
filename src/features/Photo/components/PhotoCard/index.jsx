@@ -1,30 +1,30 @@
-import React from 'react';
+import PhotoContext from 'features/Photo/photoStore/Context';
 import PropTypes from 'prop-types';
+import React, { useContext } from 'react';
 import { Button } from 'reactstrap';
 import './PhotoCard.scss';
 
 PhotoCard.propTypes = {
   photo: PropTypes.object,
-  onEditClick: PropTypes.func,
-  onRemoveClick: PropTypes.func,
 };
 
 PhotoCard.defaultProps = {
   photo: {},
-  onEditClick: null,
-  onRemoveClick: null,
-}
+};
 
-function PhotoCard(props) {
-  const { photo, onEditClick, onRemoveClick } = props;
+function PhotoCard({ photo }) {
+  const photoContext = useContext(PhotoContext);
+  const { handlePhotoEditClick, handlePhotoRemoveClick } = photoContext;
 
   const handleEditClick = () => {
-    if (onEditClick) onEditClick(photo);
-  }
+    if (!handlePhotoEditClick) return;
+    handlePhotoEditClick(photo);
+  };
 
   const handleRemoveClick = () => {
-    if (onRemoveClick) onRemoveClick(photo);
-  }
+    if (!handlePhotoRemoveClick) return;
+    handlePhotoRemoveClick(photo);
+  };
 
   return (
     <div className="photo">
@@ -41,7 +41,12 @@ function PhotoCard(props) {
           </div>
 
           <div>
-            <Button outline size="sm" color="danger" onClick={handleRemoveClick}>
+            <Button
+              outline
+              size="sm"
+              color="danger"
+              onClick={handleRemoveClick}
+            >
               Remove
             </Button>
           </div>

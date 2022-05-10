@@ -1,20 +1,18 @@
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
 import React from 'react';
-import firebase from 'firebase';
-import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
+import { StyledFirebaseAuth } from 'react-firebaseui';
 
-SignIn.propTypes = {
+SignIn.propTypes = {};
 
-};
-
+// Configure FirebaseUI.
 const uiConfig = {
-  signInFlow: 'redirect',
+  signInFlow: 'popup',
   signInSuccessUrl: '/photos',
-  signInOptions: [
-    firebase.auth.GoogleAuthProvider.PROVIDER_ID
-  ],
+  signInOptions: [firebase.auth.GoogleAuthProvider.PROVIDER_ID],
 };
 
-function SignIn() {
+function SignIn(props) {
   return (
     <div>
       <div className="text-center">
@@ -23,10 +21,7 @@ function SignIn() {
         <p>or login with social accounts</p>
       </div>
 
-      <StyledFirebaseAuth
-        uiConfig={uiConfig}
-        firebaseAuth={firebase.auth()}
-      />
+      <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
     </div>
   );
 }

@@ -1,13 +1,13 @@
-import firebase from 'firebase';
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
 
 const userApi = {
   getMe: () => {
-    // TODO: Call API to get current user
+    // Call API to get current user
     return new Promise((resolve, reject) => {
-      // reject(new Error('MY CUSTOM ERROR'));
+      // reject(new Error('New Error'));
       // return;
-
-      // Wait 500ms --> return result
+      // Wait 500ms -> return result
       setTimeout(() => {
         const currentUser = firebase.auth().currentUser;
 
@@ -16,10 +16,10 @@ const userApi = {
           name: currentUser.displayName,
           email: currentUser.email,
           photoUrl: currentUser.photoURL,
-        })
+        });
       }, 500);
-    })
-  }
-}
+    });
+  },
+};
 
 export default userApi;

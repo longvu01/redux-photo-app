@@ -7,7 +7,7 @@ const Images = {
   ORANGE_BG: orangeBackground,
   BLUE_BG: blueBackground,
   COLORFUL_BG: colorfulBackground,
-  PINK_BG: pinkBackground
-}
+  PINK_BG: pinkBackground,
+};
 
 export default Images;

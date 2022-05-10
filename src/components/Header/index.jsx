@@ -5,7 +5,7 @@ import './Header.scss';
 
 Header.propTypes = {};
 
-function Header() {
+function Header({ userName = '' }) {
   return (
     <header className="header">
       <Container>
@@ -13,7 +13,7 @@ function Header() {
           <Col xs="auto">
             <a
               className="header__link header__title"
-              href="https://youtube.com/easyfrontend"
+              href="https://www.youtube.com/easyfrontend"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -22,14 +22,16 @@ function Header() {
           </Col>
 
           <Col xs="auto">
-            <NavLink
-              exact
-              className="header__link"
-              to="/sign-in"
-              activeClassName="header__link--active"
-            >
-              Sign In
-            </NavLink>
+            {userName || (
+              <NavLink
+                exact
+                className="header__link"
+                to="/sign-in"
+                activeClassName="header__link--active"
+              >
+                Sign in
+              </NavLink>
+            )}
           </Col>
         </Row>
       </Container>

@@ -1,4 +1,5 @@
+const randomNumber = (start, end) => {
+  return start + Math.trunc(Math.random() * (end - start));
+};
 
-export const randomNumber = (min, max) => {
-  return min + Math.trunc(Math.random() * (max - min));
-}
+export { randomNumber };

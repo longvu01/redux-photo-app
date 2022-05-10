@@ -1,5 +1,5 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
 import './Banner.scss';
 
 Banner.propTypes = {
@@ -10,14 +10,12 @@ Banner.propTypes = {
 Banner.defaultProps = {
   title: '',
   backgroundUrl: '',
-}
+};
 
-function Banner(props) {
-  const { title, backgroundUrl } = props;
-
+function Banner({ title, backgroundUrl }) {
   const bannerStyle = backgroundUrl
     ? { backgroundImage: `url(${backgroundUrl})` }
-    : {}
+    : {};
 
   return (
     <section className="banner" style={bannerStyle}>

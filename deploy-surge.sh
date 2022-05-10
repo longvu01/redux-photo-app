@@ -9,4 +9,4 @@ cp index.html 200.html
 
 # Start deploying via Surge
 # The command means deploy current folder to domain paul-photo-app.surge.sh
-surge . paul-photo-app.surge.sh
+surge . photo-app-llv.surge.sh
